@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movies2021.data.model.response.ResultsResponse
 import com.example.movies2021.data.repository.ResultsRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val resultsRepository: ResultsRepository) : ViewModel() {
@@ -17,7 +19,7 @@ class HomeViewModel(private val resultsRepository: ResultsRepository) : ViewMode
         getResults()
     }
 
-    fun getResults() = viewModelScope.launch {
+    fun getResults() = GlobalScope.launch(Dispatchers.IO) {
         resultsRepository.getResults().let { response ->
             if (response.isSuccessful) {
                 _results.postValue(response.body())
