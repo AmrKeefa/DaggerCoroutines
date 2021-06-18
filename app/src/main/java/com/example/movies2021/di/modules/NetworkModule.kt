@@ -50,6 +50,7 @@ class NetworkModule {
     ): Retrofit = Retrofit.Builder()
         .baseUrl(Constants.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .client(client)
         .build()
 }
