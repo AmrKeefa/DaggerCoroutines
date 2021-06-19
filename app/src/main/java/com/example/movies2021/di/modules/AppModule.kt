@@ -7,8 +7,13 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class AppModule(val app: App) {
-    @Singleton
-    @Provides
-    fun provideApplication () = app
+class AppModule {
+//    @Singleton
+//    @Provides
+//    fun provideApplication () = app
+    companion object{
+    lateinit var app : Application
+        @Provides
+        fun provideApp () = app
+    }
 }

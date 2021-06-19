@@ -11,10 +11,11 @@ import com.example.movies2021.data.model.response.Result
 import com.example.movies2021.di.components.AppComponent
 import com.example.movies2021.di.components.DaggerAppComponent
 import com.example.movies2021.ui.main.home.adapter.HomeRecyclerAdapter
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.home_fragment.*
 import javax.inject.Inject
 
-class HomeFragment : Fragment() {
+class HomeFragment : DaggerFragment() {
     lateinit var component: AppComponent
 
     @Inject
@@ -32,7 +33,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupInjection()
+//        setupInjection()
 
         viewModel.results.observe(viewLifecycleOwner,{
             val resultsList = mutableListOf<Result>()
@@ -41,11 +42,11 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun setupInjection() {
-        component = DaggerAppComponent.builder()
-            .build()
-        component.inject(this)
-    }
+//    private fun setupInjection() {
+//        component = DaggerAppComponent.builder()
+//            .build()
+//        component.inject(this)
+//    }
 
 
 
