@@ -1,7 +1,6 @@
 package com.example.movies2021.ui
 
-import android.util.Log
-import androidx.hilt.lifecycle.ViewModelInject
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,9 +9,10 @@ import com.example.movies2021.data.models.Result
 import com.example.movies2021.data.models.ResultsResponse
 import com.example.movies2021.data.repository.ResultsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import io.reactivex.Single
+
 import kotlinx.coroutines.launch
+import retrofit2.Response
 import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel
@@ -20,8 +20,8 @@ class HomeViewModel
 constructor(
     private val resultsRepository: ResultsRepository
     ) : ViewModel() {
-    private val _results = MutableLiveData<List<Result>>()
-    val results: LiveData<List<Result>> get() = _results
+    private val _results = MutableLiveData<ResultsResponse>()
+    val results: LiveData<ResultsResponse> get() = _results
     init {
         viewModelScope.launch {
             val result = resultsRepository.getResults()
