@@ -1,4 +1,4 @@
-package com.example.movies2021.data.model.response
+package com.example.movies2021.data.models
 
 data class ResultsResponse(
     val page: Int,
