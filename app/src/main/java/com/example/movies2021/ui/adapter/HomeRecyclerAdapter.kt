@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movies2021.R
 import com.example.movies2021.data.models.Result
+import com.example.movies2021.utils.extensions.load
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.recyclerlistitem.*
 import kotlinx.android.synthetic.main.recyclerlistitem.view.*
 
 class HomeRecyclerAdapter(
@@ -24,11 +27,9 @@ class HomeRecyclerAdapter(
         return MovieViewHolder(itemView, itemCallback)
     }
 
-
     fun setItemCallBack(itemCallback: (Result?) -> Unit) {
         this.itemCallback = itemCallback
     }
-
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val currentItem = movieList[position]
@@ -38,31 +39,20 @@ class HomeRecyclerAdapter(
 
     override fun getItemCount(): Int = movieList.size
 
-
-    class MovieViewHolder(itemView: View, private val itemCallback: ((Result) -> Unit)?) :
-        RecyclerView.ViewHolder(itemView) {
-        var title: TextView = itemView.titleTV
-        var rating: TextView = itemView.ratingTV
-        var image: ImageView = itemView.imageView
-        var runTime: TextView = itemView.runTimeTextView
+    class MovieViewHolder(
+        override val containerView: View,
+        private val itemCallback: ((Result) -> Unit)?
+    ) :
+        RecyclerView.ViewHolder(containerView), LayoutContainer {
 
         fun bind(result: Result) {
-            itemView.setOnClickListener { itemCallback?.invoke(result) }
-            title.text = result.title
-            rating.text = result.vote_average.toString()
-            result.poster_path.let { image.load(it) }
-            runTime.text = result.vote_count.toString()
-
+            containerView.setOnClickListener { itemCallback?.invoke(result) }
+            titleTV.text = result.title
+            ratingTV.text = result.vote_average.toString()
+            result.poster_path.let { imageView.load(it) }
+            runTimeTextView.text = result.vote_count.toString()
         }
-
-        fun ImageView.load(url: String) {
-            Glide.with(context)
-                .load(url)
-                .into(this)
-        }
-
     }
-
 }
 
 
