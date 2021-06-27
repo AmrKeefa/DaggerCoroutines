@@ -40,7 +40,7 @@
             tools:text="Hunger Games" />
 
         <TextView
-            android:id="@+id/genreTV"
+            android:id="@+id/originalTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -58,7 +58,7 @@
             android:textColor="#393434"
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="@+id/titleTV"
-            app:layout_constraintTop_toBottomOf="@+id/genreTV"
+            app:layout_constraintTop_toBottomOf="@+id/originalTitle"
             tools:ignore="SmallSp"
             tools:text="2010" />
 
